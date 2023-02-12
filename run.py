@@ -5,7 +5,7 @@ import pandas as pd
 from flask_cors import CORS
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"http://localhost:5000/predict": {"origins": "*"}})
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/predict', methods=['POST'])
 def predict():
