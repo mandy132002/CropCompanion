@@ -2,15 +2,10 @@ from flask import Flask, request, jsonify
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 import pandas as pd
+from flask_cors import CORS
 
 app = Flask(__name__)
-
-@app.after_request
-def add_header(response):
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
-
-    return response
+cors = CORS(app, resources={r"http://localhost:5000/predict": {"origins": "*"}})
 
 @app.route('/predict', methods=['POST'])
 def predict():
