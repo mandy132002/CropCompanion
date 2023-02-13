@@ -2,12 +2,14 @@ from flask import Flask, request, jsonify
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 import pandas as pd
-from flask_cors import CORS
+from flask_cors import CORS , cross_origin
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+# CORS(app)
+# cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/predict', methods=['POST'])
+@cross_origin()
 def predict():
     data = request.get_json()
     input_data = [data['n'], data['p'], data['k'], data['temperture'], data['humidity'], data['ph'], data['rainfall']]
