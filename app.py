@@ -5,14 +5,15 @@ import pandas as pd
 from flask_cors import CORS , cross_origin
 
 app = Flask(__name__)
-# CORS(app)
+CORS(app)
 # cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/predict', methods=['POST'])
-@cross_origin()
+# @cross_origin()
 def predict():
     data = request.get_json()
-    input_data = [data['n'], data['p'], data['k'], data['temperture'], data['humidity'], data['ph'], data['rainfall']]
+    data = data['input']
+    input_data = data
     
     # Load the data from a CSV file into a DataFrame
     df = pd.read_csv('dataset.csv')
@@ -38,4 +39,4 @@ def predict():
     return jsonify(response)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run('0.0.0.0', port=5001)
