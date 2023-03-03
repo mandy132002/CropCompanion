@@ -3,13 +3,13 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export default function Predict() {
-    const [n, setN] = useState(0);
-    const [p, setP] = useState(0);
-    const [k, setK] = useState(0);
-    const [temperature, setTemperature] = useState(0);
-    const [humidity, setHumidity] = useState(0);
-    const [ph, setPh] = useState(0);
-    const [rainfall, setRainfall] = useState(0);
+    const [n, setN] = useState(null);
+    const [p, setP] = useState(null);
+    const [k, setK] = useState(null);
+    const [temperature, setTemperature] = useState(null);
+    const [humidity, setHumidity] = useState(null);
+    const [ph, setPh] = useState(null);
+    const [rainfall, setRainfall] = useState(null);
     const [result, setResult] = useState('');
   
     const handleSubmit = async (e) => {
@@ -21,53 +21,70 @@ export default function Predict() {
     };
   
     return (
-      <div>
-        <form onSubmit={handleSubmit}>
+      <>
+        <div className='mt-10 flex flex-col pl-14'>
+          <h1 className='text-4xl mx-auto  font-bold'>Lets </h1>
+          <h1 className='text-7xl mx-auto font-extrabold'>Predict!</h1>
+        </div>
+        
+        <div className='mt-10 pl-20 pr-20 flex '>
+          <img className='w-96' src="/images/undraw_japan_ubgk.svg" alt="" />
+        <form onSubmit={handleSubmit} className="flex flex-col w-full">
           <input
+            className="border border-black p-3 rounded-md w-2/4 mx-auto mt-3 hover:bg-green-200"
             type="number"
-            placeholder="n"
+            placeholder="N"
             value={n}
             onChange={(e) => setN(e.target.value)}
           />
           <input
+            className="border border-black p-3 rounded-md w-2/4 mx-auto mt-3 hover:bg-green-200"
             type="number"
-            placeholder="p"
+            placeholder="P"
             value={p}
             onChange={(e) => setP(e.target.value)}
           />
           <input
+            className="border border-black p-3 rounded-md w-2/4 mx-auto mt-3 hover:bg-green-200"
             type="number"
-            placeholder="k"
+            placeholder="K"
             value={k}
             onChange={(e) => setK(e.target.value)}
           />
-          <input
+          <input 
+            className="border border-black p-3 rounded-md w-2/4 mx-auto mt-3 hover:bg-green-200"
             type="number"
             placeholder="temperature"
             value={temperature}
             onChange={(e) => setTemperature(e.target.value)}
           />
           <input
+            className="border border-black p-3 rounded-md w-2/4 mx-auto mt-3 hover:bg-green-200"
             type="number"
             placeholder="humidity"
             value={humidity}
             onChange={(e) => setHumidity(e.target.value)}
           />
           <input
+            className="border border-black p-3 rounded-md w-2/4 mx-auto mt-3 hover:bg-green-200"
             type="number"
             placeholder="ph"
             value={ph}
             onChange={(e) => setPh(e.target.value)}
           />
           <input
+            className="border border-black p-3 rounded-md w-2/4 mx-auto mt-3 hover:bg-green-200"
             type="number"
             placeholder="rainfall"
             value={rainfall}
             onChange={(e) => setRainfall(e.target.value)}
           />
-          <button type="submit">Predict</button>
+          <button className='border-2 p-3 w-60 mx-auto text-2xl font-bold mt-10 rounded-2xl bg-green-500 hover:shadow-xl' type="submit">Predict</button>
         </form>
-        <p>Result: {result}</p>
+        <img className='w-80' src="/images/undraw_treasure_of-9-i.svg" alt="" />
       </div>
+      <h1 className='text-2xl w-96 font-bold mt-10 mx-auto'>Result: {result}</h1>
+      </>
+      
     );
 }

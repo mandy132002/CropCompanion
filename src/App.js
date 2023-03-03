@@ -3,7 +3,10 @@ import Predict from './Components/Predict';
 
 const App = () => {
   return(
-    <Predict/>
+    <div className=''>
+        <Predict/>
+    </div>
+    
   )
 };
 
