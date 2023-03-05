@@ -5,7 +5,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 // import useStyles from './styles';
 import Input from './Input';
 
-import {signup, signin} from '../api';
+import {signupCust, signinCust} from '../api';
 
 const initialState = { name: '', email: '', password: '', confirmPassword: ''};
 
@@ -19,7 +19,7 @@ const Auth = () => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [isSeller, setIsSeller ] = useState("customer");
+  //const [isSeller, setIsSeller ] = useState("customer");
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   const switchMode = () => {
@@ -32,23 +32,25 @@ const Auth = () => {
     e.preventDefault();
 
     if (isSignup) {
-      signup(form);
+      signupCust(form);
+      navigate('/customer');
     } else {
-      signin(form);
-    }
-
-    if(isSeller !== "seller"){
+      signinCust(form);
       navigate('/customer');
     }
-    else{
-      navigate('/seller');
-    }
+
+    // if(isSeller !== "seller"){
+    //   navigate('/customer');
+    // }
+    // else{
+    //   navigate('/seller');
+    // }
     
   };
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleOptionChange = (e) => setIsSeller(e.target.value);
+  //const handleOptionChange = (e) => setIsSeller(e.target.value);
   
     return(
         <>
