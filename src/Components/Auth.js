@@ -9,7 +9,7 @@ import {signup, signin} from '../api';
 const initialState = { name: '', email: '', password: '', confirmPassword: '',role:''};
 
 const Auth = () => {
-
+  
   const [form, setForm] = useState(initialState);
   const [isSignup, setIsSignup] = useState(false);
   const [userType,setUserType] = useState();
