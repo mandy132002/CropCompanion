@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import { useState } from 'react';
+import Navbar from './Navbar';
 
 export default function Predict() {
     const [n, setN] = useState(null);
@@ -22,6 +23,7 @@ export default function Predict() {
   
     return (
       <>
+        <Navbar/>
         <div className='mt-10 flex flex-col pl-14'>
           <h1 className='text-4xl mx-auto  font-bold'>Lets </h1>
           <h1 className='text-7xl mx-auto font-extrabold'>Predict!</h1>
