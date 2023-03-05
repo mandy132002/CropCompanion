@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { async } from 'q';
 
 const API = axios.create({baseURL: 'http://localhost:5002'});
 
@@ -19,3 +20,8 @@ export const addProduct = async (formData) => {
     const res = await API.post('/seller/add-product', formData);
     //localStorage.setItem("profile", JSON.stringify(res.data.token))
 }
+
+// export const getProducts = async () => {
+//     const res = await API.get('/seller/disp-product/');
+//     console.log(res.data);
+// }

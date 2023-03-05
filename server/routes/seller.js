@@ -7,6 +7,6 @@ const router = express.Router();
 router.post("/signin", signin);
 router.post("/signup", signup);
 router.post("/add-product", productAdd);
-router.post("/disp-product", productDisp);
+router.get("/disp-product", productDisp);
 
 export default router;
