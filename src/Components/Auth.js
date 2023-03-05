@@ -24,15 +24,14 @@ const Auth = () => {
     setShowPassword(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
     if (isSignup) {
       console.log(form);
-      signup(form);
-
+      await signup(form);
     }
     else {
-      signin(form);
+      await signin(form);
     }
 
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -94,8 +93,6 @@ const Auth = () => {
           name="role"
         />
         </div>
-        
-
           <Grid container spacing={2} className="">
             { isSignup && (
             <>
