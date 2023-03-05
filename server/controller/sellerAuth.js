@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 const secret = 'test';
 
 export const signin = async (req, res) => {
-    const {email, password } = req.body;
+    const {email, password ,role } = req.body;
 
     try{
         const oldUser = await seller.findOne({email});
@@ -20,7 +20,7 @@ export const signin = async (req, res) => {
 
         // if(!isIDCorrect) return res.status(400).json({ message: "Invalid hospital ID" });
 
-        const token = jwt.sign({ email: oldUser.email, id: oldUser._id}, secret, { expiresIn: "1h" });
+        const token = jwt.sign({ email: oldUser.email, role:oldUser.role, id: oldUser._id}, secret, { expiresIn: "1h" });
 
         res.status(200).json({oldUser, token});
     } catch (err) {
@@ -29,25 +29,24 @@ export const signin = async (req, res) => {
 };
 
 export const signup = async (req,res) => {
-    const { email, password, name} = req.body;
-
+    const { email, password, name, role } = req.body;
+    console.log(req.body);
     try{
-
+        console.log('Hi');
         const oldUser = await seller.findOne({email});
         
         if(oldUser) return res.status(400).json({ message: "User already exists" });
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const result = await seller.create({ email, password: hashedPassword, name});
-
-        const token = jwt.sign({ email: result.email, id: result._id }, secret, { expiresIn: "1h" });
+        const result = await seller.create({ role, email, password: hashedPassword, name});
+        
+        const token = jwt.sign({ email: result.email,role: result.role, id: result._id }, secret, { expiresIn: "1h" });
 
         res.status(201).json({ result, token });
 
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" });
-
         console.log(error);
     }
 };
