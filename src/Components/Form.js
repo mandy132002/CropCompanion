@@ -1,11 +1,52 @@
 import { useState } from "react";
-import '../css/form.css'
+import '../css/form.css';
+import { addProduct } from "../api";
+
+// const initialState = { name: '', price: '', quantity: "", sellerId:payload._id};
 
 const Form = () => {
-  const [itemName, setItemName] = useState('');
-  const [sellerName, setSellerName] = useState('');
-  const [quantity, setquantity] = useState('');
-  const [price, setPrice] = useState('');
+  const user = JSON.parse(localStorage.getItem('profile'));
+  const parts = user.split('.');
+  const payload = JSON.parse(atob(parts[1]));
+  const [formState, setFormState] = useState({
+    name: '',
+    price: '',
+    quantity: '',
+    sellerId: payload.email
+  });
+
+  // handle form field changes and update form state
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState(prevState => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // send formState data to API using fetch or axios
+    console.log(formState);
+    addProduct(formState);
+    setFormState({
+      name: '',
+      price: '',
+      quantity: '',
+      sellerId: payload.email
+    })
+  };
+  // const [form, setForm] = useState(initialState);
+  // const [itemName, setItemName] = useState('');
+  // const [sellerName, setSellerName] = useState('');
+  // const [quantity, setquantity] = useState('');
+  // const [price, setPrice] = useState('');
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   await addProduct(form);
+  // }
+
+  // const handleChange = (e) => {
+  //   setForm({ ...form, [e.target.name]: e.target.value });
+  // }
 
   return (
     <div className="create">
@@ -15,30 +56,34 @@ const Form = () => {
         <input 
           type="text" 
           required 
-          value={itemName}
-          onChange={(e) => setItemName(e.target.value)}
+          name="name"
+          value={formState.name}
+          onChange={handleChange}
         />
-        <label>Sellers Name</label>
-        <input type="text"
+        {/* <label>Sellers Name</label>
+        <input
           required
           value={sellerName}
-          onChange={(e) => setSellerName(e.target.value)}
+          onChange={handleChange}
+        ></input> */}
+        <label>Price</label>
+        <input
+        type="number"
+        required
+        name="price"
+        value={formState.price}
+        onChange={handleChange}          
         ></input>
         <label>Product's Quantity</label>
         <input
         type="text"
         required
-        value={quantity}
-        onChange={(e) => setquantity(e.target.value)}          
+        name="quantity"
+        value={formState.quantity}
+        onChange={handleChange}          
         ></input>
-        <label>Product's Price</label>
-        <input
-        type="number    "
-        required
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}          
-        ></input>
-        <button>Add Item</button>
+
+        <button type="submit" onClick={handleSubmit}>Add Item</button>
       </form>
     </div>
   );

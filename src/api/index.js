@@ -14,20 +14,8 @@ export const signup = async (formData) => {
 
 }
 
-// export const signinCust = (formData) => API.post('/customer/signin', formData)
-//     .then(function (response) {
-//         console.log(response);
-//         localStorage.setItem("profile", JSON.stringify(response.data.token))
-//     })
-//     .catch(function (error) {
-//         console.log(error);
-//     });
-
-// export const signupCust = (formData) => API.post('/customer/signup', formData)
-//     .then(function (response) {
-//         console.log(response);
-//         localStorage.setItem("profile", JSON.stringify(response.data.token))
-//     })
-//     .catch(function (error) {
-//         console.log(error.response.data);
-//     });
+export const addProduct = async (formData) => {
+    console.log(formData);
+    const res = await API.post('/seller/add-product', formData);
+    //localStorage.setItem("profile", JSON.stringify(res.data.token))
+}

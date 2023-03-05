@@ -14,8 +14,7 @@ const App = () => {
           <Route exact path='/' element={<Auth/>} />
           <Route exact path='/seller'   element={<SellerP/>}/>
           <Route exact path='/customer' element={<></>}/>
-          <Route exact path='/seller/predict' element={<Predict/>}/>
-
+          <Route exact path='/seller/predict' element={<Predict />} />
         </Routes>
       </BrowserRouter>
     </>
