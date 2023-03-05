@@ -6,9 +6,9 @@ const secret = 'test';
 
 export const signin = async (req, res) => {
     const { email, password } = req.body;
-
+    
     try {
-        
+        console.log("mandar")
         const existingUser = await customer.findOne({ email });
         if(!existingUser) return res.status(404).json({error: "User doesn't exist. Please try again"});
 

@@ -2,25 +2,21 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import { Container, Paper, Button, Avatar, Typography, Grid, RadioGroup, Radio, FormControlLabel } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-// import useStyles from './styles';
 import Input from './Input';
-
+import { RadioButton } from './RadioButton';
 import {signup, signin} from '../api';
 
-const initialState = { name: '', email: '', password: '', confirmPassword: ''};
+const initialState = { name: '', email: '', password: '', confirmPassword: '',role:''};
 
 const Auth = () => {
 
   const [form, setForm] = useState(initialState);
   const [isSignup, setIsSignup] = useState(false);
-  //const dispatch = useDispatch();
-  //const history = useHistory();
-  // const classes = useStyles();
-  const navigate = useNavigate();
-
+  const [userType,setUserType] = useState();
   const [showPassword, setShowPassword] = useState(false);
-  const [isSeller, setIsSeller ] = useState("customer");
   const handleShowPassword = () => setShowPassword(!showPassword);
+  const navigate = useNavigate();
+  const [isSubmitted,setIsSubmitted] =useState(false);
 
   const switchMode = () => {
     setForm(initialState);
@@ -30,44 +26,77 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (isSignup) {
+      console.log(form);
       signup(form);
-    } else {
+
+    }
+    else {
       signin(form);
     }
 
-    if(isSeller !== "seller"){
+    const user = JSON.parse(localStorage.getItem('profile'));
+    let payload ={
+      "email": " ",
+      "role": " ",
+      "id": " ",
+      "iat": 0,
+      "exp": 0
+    };
+    if(user){
+      const parts = user.split('.');
+    payload = JSON.parse(atob(parts[1]));
+    }
+    if(payload.role === "customer"){
       navigate('/customer');
     }
-    else{
+    else if(payload.role === "seller"){
       navigate('/seller');
     }
     
+    
+    
   };
-
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
-  const handleOptionChange = (e) => setIsSeller(e.target.value);
   
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+  
+  const handleUserChange =(e) => { 
+      const {value} = e.target;
+      setUserType(value);
+      setForm({ ...form, role: value });
+   }
     return(
         <>
             <Container component="main" maxWidth="xs">
-      <Paper  elevation={3}>
+      <Paper  elevation={3} className="">
         <Avatar >
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">{ isSignup ? 'Sign up' : 'Sign in' }</Typography>
-        <form  onSubmit={handleSubmit}>
-        <RadioGroup aria-labelledby="demo-controlled-radio-buttons-group"
-        name="controlled-radio-buttons-group"
-        defaultValue="customer"
-        onChange={handleOptionChange}
-        >
-        <FormControlLabel name="customer" value="customer" control={<Radio />} label="Customer" />
-        <FormControlLabel name="seller" value="seller" control={<Radio />} label="Seller" />
-        </RadioGroup>
-          <Grid container spacing={2}>
+        <Typography className='pl-10' component="h1" variant="h5">{ isSignup ? 'Sign up' : 'Sign in' }</Typography>
+        <form  onSubmit={handleSubmit} className="p-10">
+        <div className='mb-5'>
+        <RadioButton
+          changed={handleUserChange}
+          userType={userType === "seller"}
+          label="seller"
+          value="seller"
+          name="role"
+        />
+        <RadioButton
+          changed={handleUserChange}
+          
+          userType={userType === "customer"}
+          label="customer"
+          value="customer"
+          name="role"
+        />
+        </div>
+        
+
+          <Grid container spacing={2} className="">
             { isSignup && (
             <>
               <Input name="name" label="Name" handleChange={handleChange} autoFocus />
@@ -79,12 +108,12 @@ const Auth = () => {
             { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" /> }
             {/* { isSeller==="seller" && <Input name="seller_id" label="Seller ID" handleChange={handleChange} autoFocus />}  */}
           </Grid>
-          <Button type="submit" fullWidth variant="contained" color="primary" >
+          <Button type="submit" fullWidth variant="contained" color="primary" className='' >
             { isSignup ? 'Sign Up' : 'Sign In' }
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Button onClick={switchMode}>
+              <Button onClick={switchMode} className="p-2" >
                 { isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up" }
               </Button>
             </Grid>
