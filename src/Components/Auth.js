@@ -69,26 +69,22 @@ const Auth = () => {
    }
     return(
         <>
-            <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" className="mt-10">
       <Paper  elevation={3} className="">
-        <Avatar >
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography className='pl-10' component="h1" variant="h5">{ isSignup ? 'Sign up' : 'Sign in' }</Typography>
+        <Typography className='pl-10 pt-10' component="h1" variant="h5">{ isSignup ? 'Sign up' : 'Sign in' }</Typography>
         <form  onSubmit={handleSubmit} className="p-10">
         <div className='mb-5'>
         <RadioButton
           changed={handleUserChange}
           userType={userType === "seller"}
-          label="seller"
+          label="Seller"
           value="seller"
           name="role"
         />
         <RadioButton
           changed={handleUserChange}
-          
           userType={userType === "customer"}
-          label="customer"
+          label="Customer"
           value="customer"
           name="role"
         />
@@ -105,11 +101,12 @@ const Auth = () => {
             { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" /> }
             {/* { isSeller==="seller" && <Input name="seller_id" label="Seller ID" handleChange={handleChange} autoFocus />}  */}
           </Grid>
-          <Button type="submit" fullWidth variant="contained" color="primary" className='' >
+          <div className="mt-5"><Button type="submit" fullWidth variant="contained" color="primary" className='' >
             { isSignup ? 'Sign Up' : 'Sign In' }
-          </Button>
+          </Button></div>
+          
           <Grid container justify="flex-end">
-            <Grid item>
+            <Grid item className="">
               <Button onClick={switchMode} className="p-2" >
                 { isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up" }
               </Button>
