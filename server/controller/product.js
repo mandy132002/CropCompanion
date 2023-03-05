@@ -13,3 +13,16 @@ export const productAdd = async (req, res) => {
         console.log(error); 
     }
 }
+
+export const productDisp = async (req, res) => {
+    //const {userId} = req.params;
+    try {
+        const products = await product.find();
+        res.status(200).json({ products });
+        console.log(products);
+      } 
+    catch (error) {
+        res.status(500).json({ message: "Something went wrong" });
+        console.log(error);
+      }
+}
