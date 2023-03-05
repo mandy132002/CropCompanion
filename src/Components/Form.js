@@ -76,6 +76,7 @@ const Form = () => {
         ></input>
         <label>Product's Quantity</label>
         <input
+        type="text"
         required
         name="quantity"
         value={formState.quantity}
