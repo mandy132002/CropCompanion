@@ -81,11 +81,11 @@ export default function Predict() {
             value={rainfall}
             onChange={(e) => setRainfall(e.target.value)}
           />
-          <button className='border-2 p-3 w-60 mx-auto text-2xl font-bold mt-10 rounded-2xl bg-green-500 hover:shadow-xl' type="submit">Predict</button>
+          <button className=' p-3 w-60 mx-auto text-2xl font-bold mt-10 rounded-2xl bg-green-500 hover:shadow-xl' type="submit">Predict</button>
         </form>
         <img className='w-80' src="/images/undraw_treasure_of-9-i.svg" alt="" />
       </div>
-      <h1 className='text-2xl w-96 font-bold mt-10 mx-auto'>Result: {result}</h1>
+      <h1 className='text-2xl w-60  font-bold mt-10 mx-auto '>Result: <span className='ml-5'>{result}</span></h1>
       </>
       
     );
