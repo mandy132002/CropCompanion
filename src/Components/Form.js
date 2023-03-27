@@ -2,8 +2,6 @@ import { useState } from "react";
 import '../css/form.css';
 import { addProduct } from "../api";
 
-// const initialState = { name: '', price: '', quantity: "", sellerId:payload._id};
-
 const Form = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
   const parts = user.split('.');
@@ -33,21 +31,7 @@ const Form = () => {
       sellerId: payload.email
     })
   };
-  // const [form, setForm] = useState(initialState);
-  // const [itemName, setItemName] = useState('');
-  // const [sellerName, setSellerName] = useState('');
-  // const [quantity, setquantity] = useState('');
-  // const [price, setPrice] = useState('');
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   await addProduct(form);
-  // }
-
-  // const handleChange = (e) => {
-  //   setForm({ ...form, [e.target.name]: e.target.value });
-  // }
-
+  
   return (
     <div className="create">
       <h2>Add a New Item</h2>

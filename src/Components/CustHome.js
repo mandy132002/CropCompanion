@@ -4,10 +4,15 @@ import { useEffect,useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Product from './Product';
+import useStore from '../store/store';
+
 
 export default function CustHome() {
     const [products, setProducts] = useState([]);
-    const [productID, setProductID] = useState("");
+    const prodId = useStore((state)=> state.productId)
+    const setId = useStore((state)=>state.setId)
+    console.log(prodId);
+
 
   useEffect(() => {
     axios.get('http://localhost:5002/customer/products')
@@ -25,11 +30,9 @@ export default function CustHome() {
     <CustNavbar/>
     <div className='m-10 ' >
           {products.map((product,index) => (
-          <div className='m-10 border rounded-xl pt-5 pb-5 flex justify-between hover:shadow-md'> 
+          <div className='m-10 border rounded-xl pt-5 pb-5 flex justify-between hover:shadow-md' onClick={()=>{setId(product)}}> 
           <li key={index} className="flex flex-col ">
             <Link to={`/customer/${product._id}`}>
-              {/* {setProductID(product._id)} */}
-              {/* <Product productID={setProductID(product._id)} /> */}
             <h3 className='ml-10 font-bold text-2xl'>{product.name}</h3>
             <p className='ml-10 '>Price: {product.price}</p>
             <p className='ml-10 '>Quantity: {product.quantity}</p>
