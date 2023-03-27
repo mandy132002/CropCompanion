@@ -29,7 +29,6 @@ def predict():
     # Train a decision tree classifier on the training data
     clf = DecisionTreeClassifier()
     clf.fit(X_train.values, y_train.values)
-
     # Use the classifier to make a prediction on the user input
     prediction = clf.predict([input_data])
 
@@ -40,3 +39,4 @@ def predict():
 
 if __name__ == '__main__':
      app.run(debug=True ,port=5001,use_reloader=False)
+
