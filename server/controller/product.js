@@ -1,5 +1,8 @@
 import product from "../models/product.js";
-import { ObjectId } from "mongoose";
+//import { ObjectId } from "mongoose";
+import mongoose from "mongoose";
+
+//const ObjectId = mongoose.Types.ObjectId;
 
 export const productAdd = async (req, res) => {
     const {name, price ,quantity, sellerId } = req.body;
@@ -28,10 +31,19 @@ export const productDisp = async (req, res) => {
 }
 
 export const productBid = async(req,res) =>{
+    //const {id} = req.params;
     try {
+        // const products = await product.findById(id);
+        // res.status(200).json({ prod });
+        // console.log(products);
         const products = await product.find();
         console.log(products);
-        const prod = products.filter((product1) => product1._id.equals(ObjectId(req.params.id)));
+        console.log(req.params.id);
+        const isValid = /^[0-9a-fA-F]{24}$/.test(req.params.id);
+        if (!isValid) {
+        return res.status(400).json({ message: 'Invalid ID format' });
+        }
+        const prod = products.filter((product1) => product1._id.equals(new mongoose.Types.ObjectId(req.params.id)));
         // const prod = products.filter((product1)=> product1._id===req.params.id);
         res.status(200).json({ prod });
         console.log(prod);
