@@ -8,6 +8,6 @@ router.post("/signin", signin);
 router.post("/signup", signup);
 router.post("/add-product", productAdd);
 router.get("/disp-product", productDisp);
-router.patch("/stop-bid",updateProduct);
+router.patch("/stop-bid/:id",updateProduct);
 
 export default router;
