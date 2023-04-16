@@ -29,7 +29,29 @@ export const productDisp = async (req, res) => {
         console.log(error);
       }
 }
+export const updateProduct = async (req,res) => {
+  
+  try{
+    const productId = req.params.productId; // Get the product ID from the URL parameter
+  const updatedData = req.body;
 
+  await product.findByIdAndUpdate(productId, updatedData, { new: true })
+    .then(updatedProduct => {
+      console.log("Hello")
+      if (updatedProduct) {
+        console.log('Product updated:', updatedProduct);
+        res.status(200).json(updatedProduct);
+      } else {
+        res.status(404).json({ message: `Product with ID ${productId} not found.` });
+      }
+    })
+  }
+    catch(error) {
+      console.error('Error updating product:', error);
+      res.status(500).json({ message: 'Internal server error.' });
+    };
+  
+}
 export const productBid = async(req,res) =>{
     //const {id} = req.params;
     try {

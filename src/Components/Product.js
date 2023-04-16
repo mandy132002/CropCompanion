@@ -16,7 +16,8 @@ const Product = () => {
             <p className='ml-10 '>Quantity: {prodId.quantity}</p>
             <p className='ml-10 '>Seller ID: {prodId.sellerId}</p>
             <p className='ml-10 '>ID: {prodId._id}</p>
-            {/* </Link> */}
+
+            {prodId.open && <div>hello</div>}
           </li>
           </div>
         
