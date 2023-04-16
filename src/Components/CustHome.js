@@ -12,6 +12,7 @@ export default function CustHome() {
     const prodId = useStore((state)=> state.productId)
     const setId = useStore((state)=>state.setId)
     console.log(prodId);
+    
 
 
   useEffect(() => {
