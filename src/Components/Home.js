@@ -8,17 +8,20 @@ const Home = () => {
   // const setId = useStore((state)=>state.setId);
 
   useEffect(() => {
-    axios
-      .get('http://localhost:5002/seller/disp-product')
-      .then((response) => {
-        setProducts(response.data.products);
-        console.log(products);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    getAllProduct();
   }, []);
 
+  const getAllProduct = () => {
+    axios
+    .get('http://localhost:5002/seller/disp-product')
+    .then((response) => {
+      setProducts(response.data.products);
+      console.log(products);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
   const stopBidding = (product) => {
     console.log(product);
     const productId = product._id;
@@ -33,6 +36,7 @@ const Home = () => {
       .catch((error) => {
         console.log(error);
       });
+      getAllProduct();
   };
   const startBidding = (product) => {
     console.log(product);
@@ -48,7 +52,25 @@ const Home = () => {
       .catch((error) => {
         console.log(error);
       });
+      getAllProduct();
   };
+
+  const deleteProduct = async(id) => {
+    const res = await fetch(`http://localhost:5002/seller/delete-product/${id}`, {
+      method: "DELETE",
+      header: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    const deletedData = await res.json();
+    console.log(deletedData);
+
+    console.log("User Deleted");
+
+    getAllProduct();
+
+  }
   const user = JSON.parse(localStorage.getItem('profile'));
   const parts = user.split('.');
   const payload = JSON.parse(atob(parts[1]));
@@ -93,7 +115,7 @@ const Home = () => {
 
            } 
             <button
-              type="submit"
+              onClick={() => deleteProduct(product._id)}
               className="h-10 w-40 mr-10 my-auto bg-red-300 rounded-md hover:shadow-md"
             >
               Delete
