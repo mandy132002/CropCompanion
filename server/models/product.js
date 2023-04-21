@@ -7,11 +7,8 @@ const productSchema = mongoose.Schema({
   sellerId: { type: String, required: true },
   bidprice: {
     type: Number,
-    get: function () {
-      return this.price;
-    },
   },
-  bidderName: { type: String, default: null },
+  bidderName: { type: String, default: "x" },
   open: { type: Boolean, default: true },
 });
 

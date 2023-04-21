@@ -62,16 +62,17 @@ const Home = () => {
       <div className="m-10 ">
         {/* {products} */}
         {filteredProducts.map((product, index) => (
-          <div className="m-10 border rounded-xl pt-5 pb-5 flex  hover:shadow-md">
+          <div className="m-10 border rounded-xl pt-5 pb-5 flex justify-between hover:shadow-md">
             <li key={index} className="flex flex-col ">
               <h3 className="ml-10 font-bold text-2xl">{product.name}</h3>
-              <p className="ml-10 ">Price: {product.price}</p>
+              <p className="ml-10 ">Current highest bid: {product.price}</p>
+              {product.bidderName!=="x" && <p className="ml-10 ">Current highest bidder: {product.bidderName}</p>}
               <p className="ml-10 ">Quantity: {product.quantity}</p>
               <p className="ml-10 ">Seller ID: {product.sellerId}</p>
-              <p>{product._id}</p>
+              {/* <p>{product._id}</p> */}
             </li>
-
-            { product.open && 
+          <div>
+          { product.open && 
               <button
               onClick={() => stopBidding(product)}
               type="submit"
@@ -97,6 +98,8 @@ const Home = () => {
             >
               Delete
             </button>
+          </div>
+            
           </div>
         ))}
       </div>
