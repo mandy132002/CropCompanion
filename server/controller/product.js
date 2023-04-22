@@ -75,4 +75,18 @@ export const productBid = async (req, res) => {
   }
 };
 
+
+//delet product function.
+export const deleteProduct = async(req, res) => {
+    try{
+      const {id} = req.params;
+      const deletep = await product.findByIdAndDelete({_id:id})
+      console.log(deletep);
+      res.status(201).json(deletep);
+
+    }
+    catch(err){
+      res.status(422).json(err)
+    }
+}
 // 6404ce298ef4c9317412a982
