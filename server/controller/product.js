@@ -20,6 +20,7 @@ export const productDisp = async (req, res) => {
   //const {userId} = req.params;
   try {
     const products = await product.find();
+
     res.status(200).json({ products });
     console.log(products);
   } catch (error) {
