@@ -9,28 +9,38 @@ import useStore from '../store/store';
 
 export default function CustHome() {
     const [products, setProducts] = useState([]);
+    const [query, setQuery] = useState("");
     const prodId = useStore((state)=> state.productId)
     const setId = useStore((state)=>state.setId)
     console.log(prodId);
     
-
-
-  useEffect(() => {
-    axios.get('http://localhost:5002/customer/products')
-    .then(response => {
-      setProducts(response.data.products);
-      console.log(products);
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  },[])
+    const fetchData = () => { 
+      axios.get(`http://localhost:5002/customer/products`)
+      .then(response => {
+        setProducts(response.data.products);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    }
+  useEffect(
+    fetchData, 
+    []
+  )
 
   return (
     <>
     <CustNavbar/>
     <div className='m-10 ' >
-          {products.map((product,index) => (
+      <input type="text" placeholder='Search....' onChange={(e)=> setQuery(e.target.value)}/>
+          {products.filter((val) => {
+            if(query == ""){
+              return val
+            }
+            else if(val.name.toLowerCase().includes(query.toLowerCase())){
+              return val
+            }
+          }).map((product,index) => (
           <div className='m-10 border rounded-xl pt-5 pb-5 flex justify-between hover:shadow-md' onClick={()=>{setId(product)}}> 
           <li key={index} className="flex flex-col ">
             <Link to={`/customer/${product._id}`}>
