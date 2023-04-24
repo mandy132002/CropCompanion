@@ -4,6 +4,7 @@ const productSchema = mongoose.Schema({
   name: { type: String, required: true },
   price: { type: Number, required: [true, 'Please enter product price'] },
   quantity: { type: String, required: true },
+  image:{type: String, required:true},
   sellerId: { type: String, required: true },
   bidprice: {
     type: Number,

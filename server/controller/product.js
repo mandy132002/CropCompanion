@@ -5,9 +5,9 @@ import mongoose from 'mongoose';
 //const ObjectId = mongoose.Types.ObjectId;
 
 export const productAdd = async (req, res) => {
-  const { name, price, quantity, sellerId } = req.body;
+  const { name, price, quantity,image, sellerId } = req.body;
   try {
-    const result = await product.create({ name, price, quantity, sellerId });
+    const result = await product.create({ name, price, quantity,image, sellerId });
 
     res.status(201).json({ result });
   } catch (error) {
