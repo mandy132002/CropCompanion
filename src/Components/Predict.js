@@ -85,7 +85,7 @@ export default function Predict() {
         </form>
         <img className='w-80' src="/images/undraw_treasure_of-9-i.svg" alt="" />
       </div>
-      <h1 className='text-2xl w-60  font-bold mt-10 mx-auto '>Result: <span className='ml-5'>{result}</span></h1>
+      <h1 className='text-2xl w-60 pb-10  font-bold mt-10 mx-auto '>Result: <span className='ml-5'>{result}</span></h1>
       </>
       
     );

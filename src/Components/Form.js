@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 import '../css/form.css';
-import { addProduct } from "../api";
+import { addProduct } from '../api';
 
 const Form = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -10,14 +10,29 @@ const Form = () => {
     name: '',
     price: '',
     quantity: '',
-    sellerId: payload.email
+    sellerId: payload.email,
+    image:'',
   });
 
   // handle form field changes and update form state
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormState(prevState => ({ ...prevState, [name]: value }));
+    setFormState((prevState) => ({ ...prevState, [name]: value }));
   };
+
+  const convertToBase64 =(event) =>{
+    event.preventDefault();
+    var reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = () =>{
+      console.log(reader.result);
+      setFormState((prevState) => ({ ...prevState, image: reader.result }))
+    };
+    reader.onerror = error =>{
+      console.log("Error: ",error);
+    };
+
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,18 +43,19 @@ const Form = () => {
       name: '',
       price: '',
       quantity: '',
-      sellerId: payload.email
-    })
+      sellerId: payload.email,
+      image:'',
+    });
   };
-  
+
   return (
     <div className="create">
       <h2>Add a New Item</h2>
       <form>
         <label>Item name:</label>
-        <input 
-          type="text" 
-          required 
+        <input
+          type="text"
+          required
           name="name"
           value={formState.name}
           onChange={handleChange}
@@ -52,25 +68,31 @@ const Form = () => {
         ></input> */}
         <label>Price</label>
         <input
-        type="number"
-        required
-        name="price"
-        value={formState.price}
-        onChange={handleChange}          
+          type="number"
+          required
+          name="price"
+          value={formState.price}
+          onChange={handleChange}
         ></input>
         <label>Product's Quantity</label>
         <input
-        type="text"
-        required
-        name="quantity"
-        value={formState.quantity}
-        onChange={handleChange}          
+          type="text"
+          required
+          name="quantity"
+          value={formState.quantity}
+          onChange={handleChange}
         ></input>
 
-        <button type="submit" onClick={handleSubmit}>Add Item</button>
+        <input  
+        accept='image/*'
+        type="file" 
+        onChange={convertToBase64}/>
+        <button type="submit" onClick={handleSubmit}>
+          Add Item
+        </button>
       </form>
     </div>
   );
-}
- 
+};
+
 export default Form;
