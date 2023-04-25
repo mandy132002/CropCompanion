@@ -32,13 +32,14 @@ export const productDisp = async (req, res) => {
 export const updateProduct = async (req,res) => {
   
   try{
-    const productId = req.params.productId; // Get the product ID from the URL parameter
-    console.log('productId:', productId); 
+  const productId = req.params.id; 
   const updatedData = req.body;
-
-  await product.findByIdAndUpdate(productId, updatedData, { new: true })
+  
+  const updatedProduct = await product.findByIdAndUpdate(productId, updatedData,{new:true})
     .then(updatedProduct => {
       console.log("Hello")
+      console.log(productId)
+      console.log(req.params)
       if (updatedProduct) {
         console.log('Product updated:', updatedProduct);
         res.status(200).json(updatedProduct);
