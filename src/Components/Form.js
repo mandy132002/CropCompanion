@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import '../css/form.css';
 import { addProduct } from '../api';
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Form = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -23,9 +25,10 @@ const Form = () => {
   const convertToBase64 =(event) =>{
     event.preventDefault();
     var reader = new FileReader();
+    // image converted to base64
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = () =>{
-      console.log(reader.result);
+      // console.log(reader.result);
       setFormState((prevState) => ({ ...prevState, image: reader.result }))
     };
     reader.onerror = error =>{
@@ -39,6 +42,7 @@ const Form = () => {
     // send formState data to API using fetch or axios
     console.log(formState);
     addProduct(formState);
+    toast("Product added successfully!", {style: {backgroundColor: '#f5cbcc'}});
     setFormState({
       name: '',
       price: '',
@@ -90,6 +94,7 @@ const Form = () => {
         <button type="submit" onClick={handleSubmit}>
           Add Item
         </button>
+        <ToastContainer />
       </form>
     </div>
   );
