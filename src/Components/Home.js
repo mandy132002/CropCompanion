@@ -22,6 +22,22 @@ const Home = () => {
         console.log(error);
       });
   };
+  const confirmBid = (product) => {
+    const productId = product._id;
+    const bidderEmail = product.bidderName;
+    const data = {
+      bidderEmail
+    };
+    axios
+      .patch(`http://localhost:5002/seller/confirm-bid/${productId}`, data)
+      .then((response) => {
+        console.log('Product updated:', response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    getAllProduct();
+  }
   const stopBidding = (product) => {
     console.log(product);
     const productId = product._id;
@@ -68,7 +84,6 @@ const Home = () => {
 
     const deletedData = await res.json();
     console.log(deletedData);
-
     console.log('User Deleted');
 
     getAllProduct();
@@ -109,6 +124,15 @@ const Home = () => {
                   className="h-10  w-40 mt-2 mx-auto mb-2  bg-red-300 rounded-md hover:shadow-xl"
                 >
                   Stop Bidding
+                </button>
+              )}
+              {product.open && (
+                <button
+                  onClick={() => confirmBid(product)}
+                  type="submit"
+                  className="h-10  w-40 mt-2 mx-auto mb-2  bg-red-300 rounded-md hover:shadow-xl"
+                >
+                  Confirm Current Bid
                 </button>
               )}
 

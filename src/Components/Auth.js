@@ -5,6 +5,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Input from './Input';
 import { RadioButton } from './RadioButton';
 import {signup, signin} from '../api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const initialState = { name: '', email: '', password: '', confirmPassword: '',role:''};
 
@@ -26,7 +28,17 @@ const Auth = () => {
 
   const handleSubmit =async (e) => {
     e.preventDefault();
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (isSignup) {
+      if(form.password.length<8) {
+        toast.error('Password must be at least 8 characters long', {style: {backgroundColor: '#f5cbcc'}});
+        return;
+      }
+      if(!emailRegex.test(String(form.email).toLowerCase()))
+      {
+        toast.error('Please enter a valid email ID', {style: {backgroundColor: '#f5cbcc'}});
+        return;
+      }
       console.log(form);
       await signup(form);
     }
@@ -110,6 +122,7 @@ const Auth = () => {
               <Button onClick={switchMode} className="p-2" >
                 { isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up" }
               </Button>
+              <ToastContainer/>
             </Grid>
           </Grid>
         </form>

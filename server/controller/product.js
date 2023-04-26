@@ -1,6 +1,7 @@
 import product from '../models/product.js';
 //import { ObjectId } from "mongoose";
 import mongoose from 'mongoose';
+import sendEmail from '../utils/sendEmail.js';
 
 //const ObjectId = mongoose.Types.ObjectId;
 
@@ -22,7 +23,7 @@ export const productDisp = async (req, res) => {
     const products = await product.find();
 
     res.status(200).json({ products });
-    console.log(products);
+    //console.log(products);
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong' });
     console.log(error);
@@ -38,7 +39,7 @@ export const updateProduct = async (req, res) => {
       .then((updatedProduct) => {
         
         if (updatedProduct) {
-          console.log('Product updated:', updatedProduct);
+          //console.log('Product updated:', updatedProduct);
           res.status(200).json(updatedProduct);
         } else {
           res
@@ -51,6 +52,7 @@ export const updateProduct = async (req, res) => {
     res.status(500).json({ message: 'Internal server error.' });
   }
 };
+
 export const productBid = async (req, res) => {
   //const {id} = req.params;
   try {
@@ -90,4 +92,46 @@ export const deleteProduct = async(req, res) => {
       res.status(422).json(err)
     }
 }
-// 6404ce298ef4c9317412a982
+
+export const confirmBid = async(req, res) => {
+  try {
+    const productId = req.params.id;
+    const updatedData = {open: false}
+
+    const bidderMail = req.body.bidderEmail;
+    console.log(req.body.bidderEmail)
+
+    const updatedProduct = await product
+      .findByIdAndUpdate(productId, updatedData, { new: true })
+      .then((updatedProduct) => {
+        
+        if (updatedProduct) {
+          console.log('Product updated');
+          res.status(200).json(updatedProduct);
+
+          try {
+            const send_to = bidderMail
+            const sent_from = process.env.EMAIL_USER
+            const reply_to = bidderMail
+            const subject = "Bid Confirmation"
+            const message = 
+                `<h2>Hello user!</h2>
+                <p>Your bid for xyz product has been confirmed</p>`
+
+            sendEmail(subject, message, send_to, sent_from, reply_to)
+            console.log("email sent")
+          } catch (error) {
+            console.log(error.message)
+            console.log("no")
+          }
+        } else {
+          res
+            .status(404)
+            .json({ message: `Product with ID ${productId} not found.` });
+        }
+      });
+  } catch (error) {
+    console.error('Error updating product:', error);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
+}
