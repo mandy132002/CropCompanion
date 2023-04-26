@@ -11,7 +11,7 @@ const productSchema = mongoose.Schema({
   },
   bidderName: { type: String, default: "x" },
   open: { type: Boolean, default: true },
-  // sold: { type: Boolean, default:false}
+  sold: { type: Boolean, default:false}
 });
 
 export default mongoose.model('Product', productSchema);

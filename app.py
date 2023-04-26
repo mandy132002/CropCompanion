@@ -3,7 +3,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 import pandas as pd
 from flask_cors import CORS , cross_origin
-
+    
 app = Flask(__name__)
 CORS(app)
 # cors = CORS(app, resources={r"/*": {"origins": "*"}})

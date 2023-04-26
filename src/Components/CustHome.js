@@ -23,6 +23,10 @@ export default function CustHome() {
         console.log(error);
       })
     }
+
+    const filteredProducts = products.filter(
+      (product) => product.sold === false
+   );
   useEffect(
     fetchData, 
     []
@@ -33,7 +37,7 @@ export default function CustHome() {
     <CustNavbar/>
     <div className='m-10 ' >
       <input className='shadow-xl w-96 p-2 ml-10 border rounded-md border-black' type="text" placeholder='Search CropCompanion.in' onChange={(e)=> setQuery(e.target.value)}/>
-          {products.filter((val) => {
+          {filteredProducts.filter((val) => {
             if(query === ""){
               return val
             }
@@ -49,6 +53,7 @@ export default function CustHome() {
             <p className='ml-10 '>Quantity: {product.quantity}</p>
             <p className='ml-10 '>Seller ID: {product.sellerId}</p>
             <p className='ml-10 '>ID: {product._id}</p>
+            <img src={product.image} alt="productImage" />
             </Link>
           </li>
           </div>
