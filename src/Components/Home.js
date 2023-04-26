@@ -92,7 +92,7 @@ const Home = () => {
   const parts = user.split('.');
   const payload = JSON.parse(atob(parts[1]));
   const filteredProducts = products.filter(
-    (product) => product.sellerId === payload.email
+    (product) => (product.sellerId === payload.email) && (product.sold === false)
   );
 
   return (
@@ -126,7 +126,7 @@ const Home = () => {
                   Stop Bidding
                 </button>
               )}
-              {product.open && (
+              {(product.open && product.bidderName!=="x") && (
                 <button
                   onClick={() => confirmBid(product)}
                   type="submit"

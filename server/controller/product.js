@@ -96,7 +96,7 @@ export const deleteProduct = async(req, res) => {
 export const confirmBid = async(req, res) => {
   try {
     const productId = req.params.id;
-    const updatedData = {open: false}
+    const updatedData = {sold: true}
 
     const bidderMail = req.body.bidderEmail;
     console.log(req.body.bidderEmail)
