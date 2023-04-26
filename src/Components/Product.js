@@ -4,6 +4,8 @@ import useStore from '../store/store';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Product = () => {
   const navigate = useNavigate();
@@ -28,7 +30,7 @@ console.log(bidState.price)
   const placeBid = (event) => {
     event.preventDefault();
     if (bidState.price <= prodId.price) {
-      alert("Bid must be higher than the current highest bid!");
+      toast.error("Bid must be higher than the current highest bid!", {style: {backgroundColor: '#f5cbcc'}});
       return;
     }
     axios.patch(`http://localhost:5002/customer/place-bid/${prodId._id}`,bidState)
@@ -61,6 +63,7 @@ console.log(bidState.price)
                 <button className='bg-green-400 p-4  rounded-xl ml-12' onClick={placeBid} type="submit">
                   Place Bid
                 </button>
+                <ToastContainer />
               </div>
             )}
           </li>
