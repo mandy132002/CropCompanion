@@ -3,11 +3,13 @@ import '../css/form.css';
 import { addProduct } from '../api';
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Form = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
   const parts = user.split('.');
   const payload = JSON.parse(atob(parts[1]));
+  const navigate = useNavigate();
   const [formState, setFormState] = useState({
     name: '',
     price: '',
@@ -42,7 +44,7 @@ const Form = () => {
     // send formState data to API using fetch or axios
     console.log(formState);
     addProduct(formState);
-    toast("Product added successfully!", {style: {backgroundColor: '#f5cbcc'}});
+    toast("Product added successfully!", {style: {backgroundColor: '#C6F6B2'}});
     setFormState({
       name: '',
       price: '',

@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { getTopNav } from "./../data/navbars";
 import "../css/navbar.css";
+import { signout } from "../api";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [navItems, setNavItems] = useState([]);
   const [collapse, setCollapse] = useState("nav__menu");
   const [toggleIcon, setToggleIcon] = useState("toggler__icon");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setNavItems(getTopNav());
@@ -30,10 +33,18 @@ const Navbar = () => {
           </a>
           <ul className={collapse}>
             {navItems.map((item) => (
-              <li key={item.id} className="nav__item">
-                <a href={item.href} className="nav__link">
+                <li key={item.id} className="nav__item">
+                  {/* {item.label === "Logout" && <p onclick={(e) => {
+                    e.preventDefault();
+                    Logout(item.label)}}>{item.label}</p>} */}
+                  <a href={item.href} className="nav__link">    
                   {item.label}
-                </a>
+                </a>  
+                {/* <a href={item.href} className="nav__link" onclick={(e) => {
+                  e.preventDefault();
+                  Logout(item.label)}}>    
+                  {item.label}
+                </a> */}
               </li>
             ))}
           </ul>
