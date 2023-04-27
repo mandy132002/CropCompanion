@@ -26,7 +26,7 @@ const Home = () => {
     const productId = product._id;
     const bidderEmail = product.bidderName;
     const data = {
-      bidderEmail
+      bidderEmail,
     };
     axios
       .patch(`http://localhost:5002/seller/confirm-bid/${productId}`, data)
@@ -37,7 +37,7 @@ const Home = () => {
         console.log(error);
       });
     getAllProduct();
-  }
+  };
   const stopBidding = (product) => {
     console.log(product);
     const productId = product._id;
@@ -92,45 +92,50 @@ const Home = () => {
   const parts = user.split('.');
   const payload = JSON.parse(atob(parts[1]));
   const filteredProducts = products.filter(
-    (product) => (product.sellerId === payload.email) && (product.sold === false)
+    (product) => product.sellerId === payload.email && product.sold === false
   );
 
   return (
     <>
       <Navbar />
-      <div className="m-10  flex ">
+      <div className="m-10  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
         {/* {products} */}
         {filteredProducts.map((product, index) => (
-          <div className="m-10 border rounded-xl pt-5 pb-5 flex flex-col w-60 shadow-xl">
+          <div className="m-10  border rounded-xl pt-5 pb-5 flex flex-col  shadow-xl">
             <li key={index} className="flex flex-col ">
               <h3 className="mx-auto font-bold text-2xl">{product.name}</h3>
               <p className="mx-auto ">Current highest bid: {product.price}</p>
               {product.bidderName !== 'x' && (
                 <p className="mx-auto ">
-                  Current highest bidder: {product.bidderName}
+                  Highest bidder: {product.bidderName}
                 </p>
               )}
               <p className="mx-auto">Quantity: {product.quantity}</p>
               <p className="mx-auto ">Seller ID: {product.sellerId}</p>
-              <img className="mx-auto p-4" width={150} src={product.image} alt="" />
+              <img
+                className="mx-auto p-4"
+                width={150}
+                src={product.image}
+                alt=""
+              />
 
               {/* <p>{product._id}</p> */}
             </li>
-            <div className='flex flex-col mx-auto '>
+            <div className="flex flex-col mx-auto ">
               {product.open && (
                 <button
                   onClick={() => stopBidding(product)}
                   type="submit"
-                  className="h-10  w-40 mt-2 mx-auto mb-2  bg-red-300 rounded-md hover:shadow-xl"
+                  className="h-10  w-40 mt-2 mx-auto mb-2  bg-red-400 rounded-md "
                 >
                   Stop Bidding
                 </button>
               )}
-              {(product.open && product.bidderName!=="x") && (
+              {product.open && product.bidderName !== 'x' && (
                 <button
                   onClick={() => confirmBid(product)}
                   type="submit"
-                  className="h-10  w-40 mt-2 mx-auto mb-2  bg-red-300 rounded-md hover:shadow-xl"
+                  className="h-10  w-40 mt-2 mx-auto mb-2  bg-green-300 rounded-md "
                 >
                   Confirm Current Bid
                 </button>
@@ -140,14 +145,14 @@ const Home = () => {
                 <button
                   onClick={() => startBidding(product)}
                   type="submit"
-                  className="h-10 w-40 mt-2 mx-auto mb-2  bg-green-300 rounded-md hover:shadow-xl"
+                  className="h-10 w-40 mt-2 mx-auto mb-2  bg-green-300 rounded-md "
                 >
                   Start Bidding
                 </button>
               )}
               <button
                 onClick={() => deleteProduct(product._id)}
-                className="h-10 mt-2 mx-auto mb-2 w-40   bg-red-300 rounded-md hover:shadow-md"
+                className="h-10 mt-2 mx-auto mb-2 w-40   bg-red-400 rounded-md "
               >
                 Delete
               </button>

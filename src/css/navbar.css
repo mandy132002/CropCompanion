@@ -36,7 +36,7 @@ li {
 /* Navbar */
 
 .nav__wrapper {
-  background: teal;
+  background: #042f2e;
 }
 
 .nav {
@@ -82,7 +82,7 @@ li {
   }
   .nav__menu {
     position: fixed;
-    background: teal;
+    background: #042f2e;
     flex-direction: column;
     top: 10vh;
     width: 20%;
