@@ -36,6 +36,9 @@ console.log(bidState.price)
     axios.patch(`http://localhost:5002/customer/place-bid/${prodId._id}`,bidState)
     .then((response) => {
       console.log('Bid updated:', response.data);
+      if(response) {
+        toast("Bid successful!", {style: {backgroundColor: '#C6F6B2'}});
+      }
       console.log(prodId);
       navigate('/customer');
     })

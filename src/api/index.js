@@ -15,6 +15,12 @@ export const signup = async (formData) => {
 
 }
 
+export const signout = async () => {
+    //const res = await API.post('/seller/logout');
+    localStorage.removeItem("profile")
+
+}
+  
 export const addProduct = async (formData) => {
     console.log(formData);
     const res = await API.post('/seller/add-product', formData);

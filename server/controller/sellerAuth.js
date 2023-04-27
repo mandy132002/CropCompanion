@@ -39,7 +39,7 @@ export const signup = async (req,res) => {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const result = await seller.create({ role, email, password: hashedPassword, name});
+        const result = await seller.create({ role, email, password: hashedPassword, name}); 
         
         const token = jwt.sign({ email: result.email,role: result.role, id: result._id }, secret, { expiresIn: "1h" });
 
@@ -50,3 +50,17 @@ export const signup = async (req,res) => {
         console.log(error);
     }
 };
+
+// Backend API route for logout
+export const logout = async (req, res) => {
+    try {
+      // Clear the session token from the client-side
+      res.clearCookie('token');
+  
+      // Send a success response
+      res.status(200).json({ message: 'Logout successful' });
+    } catch (err) {
+      res.status(500).json({ message: 'Something went wrong' });
+    }
+  };
+  

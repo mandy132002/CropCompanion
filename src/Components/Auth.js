@@ -85,7 +85,7 @@ const Auth = () => {
       <Paper  elevation={3} className="">
         <Typography className='pl-10 pt-10' component="h1" variant="h5">{ isSignup ? 'Sign up' : 'Sign in' }</Typography>
         <form  onSubmit={handleSubmit} className="p-10">
-        <div className='mb-5'>
+        {isSignup && <div className='mb-5'>
         <RadioButton
           changed={handleUserChange}
           userType={userType === "seller"}
@@ -100,7 +100,7 @@ const Auth = () => {
           value="customer"
           name="role"
         />
-        </div>
+        </div> }
           <Grid container spacing={2} className="">
             { isSignup && (
             <>
