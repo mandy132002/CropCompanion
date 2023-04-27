@@ -116,7 +116,7 @@ export const confirmBid = async(req, res) => {
             const subject = "Bid Confirmation"
             const message = 
                 `<h2>Hello user!</h2>
-                <p>Your bid of Rs. ${updatedProduct.price} for ${updatedProduct.name} has been confirmed.</p>`
+                <p>Your bid of Rs. ${updatedProduct.price} for ${updatedProduct.name} has been successful.</p>`
 
             sendEmail(subject, message, send_to, sent_from, reply_to)
             console.log("email sent")
