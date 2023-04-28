@@ -9,6 +9,7 @@ import Product from './Components/Product';
 import SoldProduct from './Components/SoldProduct';
 import CustPrevProd from './Components/CustPrevProd';
 import Signout from './Components/Signout';
+import LandingPage from './Components/LandingPage';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -16,7 +17,8 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path='/' element={<Auth/>} />
+          <Route exact path='/' element={<LandingPage/>} />
+          <Route exact path='/login' element={<Auth/>} />
           <Route exact path='/seller' element={<Home/>}/>
           <Route exact path='/seller/addP' element={<SellerP/>}/>
           <Route exact path='/seller/SoldP' element={<SoldProduct/>}/>
